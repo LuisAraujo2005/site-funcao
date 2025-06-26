@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Gráfico de Função</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f0f0f0;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin: 5px 0;
+    }
+    #plot {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Visualizador de Funções Matemáticas</h2>
+  <p>Digite uma função de x (ex: <code>x^2</code>, <code>sin(x)</code>, <code>x**3 - 2*x</code>):</p>
+  <input type="text" id="funcInput" placeholder="Ex: x^2 + 3*x - 4" size="40">
+  <br>
+  <button onclick="plotFunction()">Plotar Gráfico</button>
+
+  <div id="plot"></div>
+
+  <script>
+    function plotFunction() {
+      let input = document.getElementById("funcInput").value;
+      input = input.replace(/\^/g, "**"); // transforma ^ em **
+
+
+      const xValues = [];
+      const yValues = [];
+
+      for (let x = -10; x <= 10; x += 0.1) {
+        try {
+          const y = eval(input.replace(/x/g, `(${x})`));
+          xValues.push(x);
+          yValues.push(y);
+        } catch (err) {
+          alert("Erro na função. Verifique se está digitada corretamente.");
+          return;
+        }
+      }
+
+      const trace = {
+        x: xValues,
+        y: yValues,
+        type: 'scatter',
+        mode: 'lines',
+        line: { color: 'blue' }
+      };
+
+      Plotly.newPlot('plot', [trace], {
+        title: 'Gráfico da Função',
+        xaxis: { title: 'x' },
+        yaxis: { title: 'f(x)' }
+      });
+    }
+  </script>
+</body>
+</html>
