@@ -5,111 +5,103 @@
   <title>Gráfico de Função</title>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <style>
-    
-/* Estilo moderno e limpo para site educativo de matemática */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
 
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Poppins', sans-serif;
-      }
-      
-      body {
-        background: linear-gradient(to bottom right, #f0f4f8, #e0f7fa);
-        color: #333;
-        line-height: 1.6;
-        padding: 40px 20px;
-      }
-      
+    body {
+      background: linear-gradient(to bottom right, #f0f4f8, #e0f7fa);
+      color: #333;
+      line-height: 1.6;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #005b96;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    p {
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+    }
+
+    code {
+      background-color: #e0f7fa;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-family: monospace;
+    }
+
+    input[type="text"] {
+      font-size: 1rem;
+      padding: 8px;
+      width: 100%;
+      max-width: 500px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin-top: 10px;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #005b96;
+    }
+
+    @media (max-width: 600px) {
       .container {
-        max-width: 800px;
-        margin: auto;
-        background: white;
-        padding: 40px;
-        border-radius: 12px;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-      }
-      
-      h1, h2, h3 {
-        color: #005b96;
-        margin-bottom: 20px;
-      }
-      
-      h1 {
-        font-size: 2.5rem;
-        text-align: center;
-        margin-bottom: 40px;
-      }
-      
-      p {
-        margin-bottom: 20px;
-        font-size: 1.1rem;
-      }
-      
-      ul {
-        margin-left: 20px;
-        margin-bottom: 20px;
-      }
-      
-      code {
-        background-color: #e0f7fa;
-        padding: 4px 8px;
-        border-radius: 6px;
-        font-family: monospace;
-      }
-      
-      a {
-        color: #0077cc;
-        text-decoration: none;
-      }
-      
-      a:hover {
-        text-decoration: underline;
-      }
-      
-      footer {
-        text-align: center;
-        font-size: 0.9rem;
-        margin-top: 40px;
-        color: #777;
-      }
-      
-      /* Responsivo */
-      @media (max-width: 600px) {
-        .container {
-          padding: 20px;
-        }
-      
-        h1 {
-          font-size: 2rem;
-        }
-      
-        p {
-          font-size: 1rem;
-        }
+        padding: 20px;
       }
 
+      h1 {
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    
-  
-  <h2>Visualizador de Funções Matemáticas</h2>
-  <p>Digite uma função de x (ex: <code>x^2</code>, <code>sin(x)</code>, <code>x**3 - 2*x</code>):</p>
-  <input type="text" id="funcInput" placeholder="Ex: x^2 + 3*x - 4" size="40">
-  <br>
-  <button onclick="plotFunction()">Plotar Gráfico</button>
-
-  <div id="plot"></div>
+    <h1>Visualizador de Funções Matemáticas</h1>
+    <p>Digite uma função de x (ex: <code>x^2</code>, <code>sin(x)</code>, <code>x**3 - 2*x</code>):</p>
+    <input type="text" id="funcInput" placeholder="Ex: x^2 + 3*x - 4" size="40">
+    <br>
+    <button onclick="plotFunction()">Plotar Gráfico</button>
+    <div id="plot" style="margin-top: 40px;"></div>
   </div>
 
   <script>
     function plotFunction() {
       let input = document.getElementById("funcInput").value;
-      input = input.replace(/\^/g, "**"); // transforma ^ em **
-
+      input = input.replace(/\^/g, "**");
 
       const xValues = [];
       const yValues = [];
